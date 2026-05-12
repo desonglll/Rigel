@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<% unless @post.published? %>
+  <p style="color: orange;">This is a draft post.</p>
+<% end %>
+
+<%= render @post %>
+
+<div>
+  <%= link_to "Edit this post", edit_post_path(@post) %> |
+  <%= link_to "Back to posts", posts_path %>
+
+  <%= button_to "Destroy this post", @post, method: :delete %>
+</div>

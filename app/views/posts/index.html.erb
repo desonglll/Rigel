@@ -1,0 +1,17 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Posts" %>
+
+<%= link_to "New post", new_post_path %>
+
+<% if user_signed_in? %>
+  | <%= link_to "My Drafts", drafts_posts_path %>
+<% end %>
+
+<div id="posts">
+  <% @posts.each do |post| %>
+    <%= render 'post_card', post: post %>
+  <% end %>
+</div>
+
+

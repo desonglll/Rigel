@@ -1,0 +1,15 @@
+<article id="<%= dom_id post %>" class="<%= 'opacity-60' unless post.published? %>">
+  <div>
+    <h2>
+      <%= link_to post.title, post %>
+    </h2>
+    <p><%= post.content %></p>
+    <div>
+      <span>Posted by <%= post.author.user_name %> At </span>
+      <time><%= post.created_at %></time>
+      <!--      link_to-->
+      <!--      <Link href={`/post/${post.id}/edit`}>Edit</Link>-->
+      <!--      <button onClick={handleDelete}>Delete</button>-->
+    </div>
+  </div>
+</article>
