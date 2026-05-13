@@ -1,15 +1,4 @@
-<article id="<%= dom_id post %>">
-  <div>
-    <h2>
-      <%= link_to post.title, post %>
-    </h2>
-    <p><%= post.content %></p>
-    <div>
-      <span>Posted by <%= post.author.user_name %> At </span>
-      <time><%= post.created_at %></time>
-      <!--      link_to-->
-      <!--      <Link href={`/post/${post.id}/edit`}>Edit</Link>-->
-      <!--      <button onClick={handleDelete}>Delete</button>-->
-    </div>
-  </div>
+<article id="<%= dom_id post %>" class="py-3">
+  <h3><%= link_to post.title, post %></h3>
+  <span class="text-sm"><%= post.author.user_name %> · <time><%= post.created_at.strftime("%Y-%m-%d") %></time></span>
 </article>

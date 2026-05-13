@@ -1,17 +1,7 @@
-<div id="<%= dom_id post %>">
-  <div>
-    <strong>Title:</strong>
-    <%= post.title %>
-  </div>
-
-  <div>
-    <strong>Content:</strong>
+<article id="<%= dom_id post %>" class="container mx-auto py-8">
+  <h1 class="text-2xl font-bold mb-2"><%= post.title %></h1>
+  <p class="text-sm mb-6"><%= post.author.user_name %> · <time><%= post.created_at.strftime("%Y-%m-%d") %></time></p>
+  <div class="leading-relaxed">
     <%= post.content %>
   </div>
-
-  <div>
-    <strong>Published:</strong>
-    <%= post.published %>
-  </div>
-
-</div>
+</article>

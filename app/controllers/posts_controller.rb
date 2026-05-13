@@ -4,15 +4,26 @@ class PostsController < ApplicationController
   before_action :authorize_author!, only: %i[ edit update destroy ]
 
   def index
-    @posts = Post.published.order(created_at: :desc)
+    @posts = Post.published.order(created_at: :desc).page params[:page]
   end
 
   def drafts
-    @posts = current_user.posts.draft.order(updated_at: :desc)
+    @posts = current_user.posts.draft.order(updated_at: :desc).page params[:page]
     render :index
   end
 
   def show
+    @post = Post.find(params[:id])
+
+    respond_to do |format|
+      format.html
+
+      format.md {
+        html_body = @post.content.to_s
+        markdown_text = ReverseMarkdown.convert(html_body, unknown_tags: :bypass)
+        render plain: markdown_text, content_type: 'text/markdown'
+      }
+    end
   end
 
   def new

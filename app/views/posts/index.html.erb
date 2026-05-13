@@ -8,10 +8,13 @@
   | <%= link_to "My Drafts", drafts_posts_path %>
 <% end %>
 
-<div id="posts">
+<div id="posts" class="container">
   <% @posts.each do |post| %>
     <%= render 'post_card', post: post %>
   <% end %>
 </div>
 
+<div class="w-full justify-center flex">
+  <%= paginate @posts%>
+</div>
 

@@ -6,4 +6,5 @@ class Post < ApplicationRecord
   scope :draft, -> { where(published: false) }
 
   validates :title, presence: true
+  paginates_per 10
 end
