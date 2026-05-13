@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
-  before_action :authenticate_user!, only: %i[ new edit update destroy ]
+  before_action :authenticate_user!, only: %i[ new edit update destroy drafts ]
   before_action :authorize_author!, only: %i[ edit update destroy ]
 
   def index
@@ -44,6 +44,8 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
       if @post.update(post_params)
+        puts @post.inspect
+
         if @post.published?
           format.html { redirect_to @post, notice: "Post was successfully updated." }
         else

@@ -1,13 +1,19 @@
 Rails.application.routes.draw do
+  namespace :api do
+    namespace :v1 do
+      resources :posts, only: [ :index, :create ]
+    end
+  end
+
   resources :posts do
     collection do
       get :drafts
     end
   end
   devise_for :users, controllers: {
-    sessions: "users/sessions",
-    registrations: "users/registrations"
-  }
+               sessions: "users/sessions",
+               registrations: "users/registrations"
+             }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
