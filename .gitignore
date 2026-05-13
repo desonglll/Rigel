@@ -39,3 +39,4 @@
 
 # Ignore IDE config
 /.idea
+.DS_Store
