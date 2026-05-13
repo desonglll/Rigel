@@ -2,3 +2,11 @@
 @import "tailwindcss/theme.css" layer(theme);
 /*@import "tailwindcss/preflight.css" layer(base);*/
 @import "tailwindcss/utilities.css" layer(utilities);
+
+label {
+    @apply font-bold
+}
+
+input[type="submit"] {
+    @apply cursor-pointer
+}

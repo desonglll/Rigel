@@ -1,8 +1,11 @@
 require "test_helper"
 
 class PostsControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
   setup do
     @post = posts(:one)
+    @user = users(:one)
+    sign_in @user
   end
 
   test "should get index" do
@@ -15,12 +18,29 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should create post" do
-    assert_difference("Post.count") do
-      post posts_url, params: { post: { content: @post.content, published: @post.published, title: @post.title } }
+  test "should create draft post" do
+    sign_in users(:one)
+
+    assert_difference("Post.count", 1) do
+      post posts_url, params: {
+        post: { title: "Test", content: "Body", published: false }
+      }
     end
 
-    assert_redirected_to post_url(Post.last)
+    assert_redirected_to drafts_posts_path
+  end
+
+  test "should create published post" do
+    sign_in users(:one)
+
+    assert_difference("Post.count", 1) do
+      post posts_url, params: {
+        post: { title: "Test", content: "Body", published: true }
+      }
+    end
+
+    post = Post.last
+    assert_redirected_to post_url(post)
   end
 
   test "should show post" do
@@ -33,9 +53,28 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should update post" do
-    patch post_url(@post), params: { post: { content: @post.content, published: @post.published, title: @post.title } }
-    assert_redirected_to post_url(@post)
+  test "should update draft post" do
+    sign_in users(:one)
+    post = posts(:one)
+    post.update!(published: false)
+
+    patch post_url(post), params: {
+      post: { title: "Updated", published: false }
+    }
+
+    assert_redirected_to drafts_posts_path
+  end
+
+  test "should update published post" do
+    sign_in users(:one)
+    post = posts(:one)
+    post.update!(published: true)
+
+    patch post_url(post), params: {
+      post: { title: "Updated", published: true }
+    }
+
+    assert_redirected_to post_url(post)
   end
 
   test "should destroy post" do
