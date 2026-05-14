@@ -1,12 +1,10 @@
 <% content_for :title, "Editing post" %>
 
-<h1>Editing post</h1>
+<h1 class="text-2xl font-bold mb-6 pb-4 border-b border-[#F3F4F6]">Editing post</h1>
 
 <%= render "form", post: @post %>
 
-<br>
-
-<div>
-  <%= link_to "Show this post", @post %> |
-  <%= link_to "Back to posts", posts_path %>
+<div class="py-8 border-t border-[#F3F4F6] flex gap-6 text-base">
+  <%= link_to "Show", @post %>
+  <%= link_to "Back", posts_path %>
 </div>

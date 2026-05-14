@@ -21,7 +21,7 @@ class PostsController < ApplicationController
       format.md {
         html_body = @post.content.to_s
         markdown_text = ReverseMarkdown.convert(html_body, unknown_tags: :bypass)
-        render plain: markdown_text, content_type: 'text/markdown'
+        render plain: markdown_text, content_type: "text/markdown"
       }
     end
   end

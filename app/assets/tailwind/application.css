@@ -3,10 +3,18 @@
 /*@import "tailwindcss/preflight.css" layer(base);*/
 @import "tailwindcss/utilities.css" layer(utilities);
 
-label {
-    @apply font-bold
+body {
+  font-family: -apple-system, system-ui, sans-serif;
+  color: #000;
+}
+
+a {
+  color: #2563EB;
+}
+a:hover {
+  text-decoration: underline;
 }
 
 input[type="submit"] {
-    @apply cursor-pointer
+  @apply cursor-pointer
 }

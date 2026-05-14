@@ -1,13 +1,15 @@
-<p style="color: green"><%= notice %></p>
+<% if notice %>
+  <p class="text-sm text-[#6B7280] py-2 mb-4 border-b border-[#F3F4F6]"><%= notice %></p>
+<% end %>
 
 <% unless @post.published? %>
-  <p style="color: orange;">This is a draft post.</p>
+  <p class="text-sm text-[#6B7280] py-2 mb-4 border-b border-[#F3F4F6]">This is a draft post.</p>
 <% end %>
 
 <%= render @post %>
 
-<div class="container mx-auto py-4 flex gap-4">
-  <%= link_to "Edit this post", edit_post_path(@post) %>
-  <%= link_to "Back to posts", posts_path %>
-  <%= button_to "Destroy this post", @post, method: :delete %>
+<div class="py-8 border-t border-[#F3F4F6] flex gap-6 text-base">
+  <%= link_to "Edit", edit_post_path(@post) %>
+  <%= link_to "Back", posts_path %>
+  <%= button_to "Delete", @post, method: :delete, class: "text-[#6B7280] hover:text-[#2563EB] cursor-pointer" %>
 </div>

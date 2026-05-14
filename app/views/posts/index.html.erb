@@ -1,20 +1,18 @@
-<p style="color: green"><%= notice %></p>
-
 <% content_for :title, "Posts" %>
 
-<%= link_to "New post", new_post_path %>
+<div class="flex gap-6 mb-8 text-base">
+  <%= link_to "New post", new_post_path %>
+  <% if user_signed_in? %>
+    <%= link_to "My Drafts", drafts_posts_path %>
+  <% end %>
+</div>
 
-<% if user_signed_in? %>
-  | <%= link_to "My Drafts", drafts_posts_path %>
-<% end %>
-
-<div id="posts" class="container">
+<div id="posts">
   <% @posts.each do |post| %>
     <%= render 'post_card', post: post %>
   <% end %>
 </div>
 
-<div class="w-full justify-center flex">
-  <%= paginate @posts%>
+<div class="py-8 flex justify-center">
+  <%= paginate @posts %>
 </div>
-
