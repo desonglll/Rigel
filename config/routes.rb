@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
+      resource :token, only: [ :create ]
       resources :posts, only: [ :index, :create ] do
         resources :comments, only: [ :index, :create, :destroy ]
       end
