@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
-  namespace :api do
+  namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      resources :posts, only: [ :index, :create ]
+      resources :posts, only: [ :index, :create ] do
+        resources :comments, only: [ :index, :create, :destroy ]
+      end
     end
   end
 
   resources :posts do
+    resources :comments, only: [ :create, :destroy ]
     collection do
       get :drafts
     end

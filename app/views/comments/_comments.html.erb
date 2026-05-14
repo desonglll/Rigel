@@ -1,0 +1,11 @@
+<div id="comments" class="py-8 border-t border-[#F3F4F6]">
+  <h2 class="text-lg font-bold mb-6">Comments</h2>
+
+  <%= render partial: "comments/form", locals: { commentable: commentable, comment: Comment.new } %>
+
+  <div class="mt-8">
+    <% commentable.comments.root_comments.ordered.each do |comment| %>
+      <%= render partial: "comments/comment", locals: { comment: comment } %>
+    <% end %>
+  </div>
+</div>

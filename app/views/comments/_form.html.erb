@@ -1,0 +1,16 @@
+<%= form_with(model: [commentable, comment], class: "flex flex-col gap-3", data: { turbo_stream: true }) do |form| %>
+  <% if comment.parent %>
+    <%= form.hidden_field :parent_id, value: comment.parent.id %>
+  <% end %>
+
+  <div class="flex flex-col gap-2">
+    <%= form.text_area :body, rows: 3, placeholder: "Write a comment...", class: "border border-[#F3F4F6] px-3 py-2 text-base", style: "border-radius:0" %>
+  </div>
+
+  <div class="flex items-center gap-4">
+    <%= form.submit "Post Comment", class: "text-[#2563EB] cursor-pointer bg-transparent border-0 text-sm px-0 py-0", style: "border-radius:0" %>
+    <% if comment.parent %>
+      <a href="#" data-action="comment#cancelReply" class="text-sm text-[#6B7280]">Cancel</a>
+    <% end %>
+  </div>
+<% end %>

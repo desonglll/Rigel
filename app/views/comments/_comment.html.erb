@@ -1,0 +1,30 @@
+<div id="<%= dom_id(comment) %>" class="py-4">
+  <div class="flex items-start justify-between">
+    <div class="flex items-center gap-3 mb-2">
+      <span class="text-sm font-medium"><%= comment.user.user_name %></span>
+      <span class="text-xs text-[#6B7280]"><%= time_ago_in_words(comment.created_at) %> ago</span>
+    </div>
+    <% if user_signed_in? && comment.user == current_user %>
+      <%= button_to "Delete", [comment.commentable, comment], method: :delete, class: "text-xs text-[#6B7280] hover:text-[#2563EB] cursor-pointer bg-transparent border-0 px-0 py-0", form: { data: { turbo_stream: true } } %>
+    <% end %>
+  </div>
+
+  <p class="text-base text-[#374151] mb-2"><%= comment.body %></p>
+
+  <% if user_signed_in? && comment.depth < 3 %>
+    <div data-controller="comment">
+      <a href="#" data-action="comment#toggleReply" class="text-sm text-[#2563EB] cursor-pointer">Reply</a>
+      <div data-comment-target="replyForm" class="hidden mt-3">
+        <%= render partial: "comments/form", locals: { commentable: comment.commentable, comment: Comment.new(parent: comment) } %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if comment.replies.ordered.any? %>
+    <div class="ml-6 pl-4 border-l-2 border-[#F3F4F6]">
+      <% comment.replies.ordered.each do |reply| %>
+        <%= render partial: "comments/comment", locals: { comment: reply } %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

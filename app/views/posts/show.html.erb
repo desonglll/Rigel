@@ -13,3 +13,5 @@
   <%= link_to "Back", posts_path %>
   <%= button_to "Delete", @post, method: :delete, class: "text-[#6B7280] hover:text-[#2563EB] cursor-pointer" %>
 </div>
+
+<%= render partial: "comments/comments", locals: { commentable: @post } %>
