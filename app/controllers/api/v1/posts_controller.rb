@@ -1,4 +1,6 @@
 class Api::V1::PostsController < ActionController::API
+  include Api::Authenticatable
+
   before_action :authenticate_user_by_token
 
   def index
@@ -26,12 +28,6 @@ class Api::V1::PostsController < ActionController::API
   end
 
   private
-
-  def authenticate_user_by_token
-    token = request.headers["Authorization"]&.split(" ")&.last
-    @current_user = User.find_by(api_token: token)
-    render json: { error: "Unauthorized" }, status: :unauthorized unless @current_user
-  end
 
   def post_params
     params.require(:post).permit(:title, :content)

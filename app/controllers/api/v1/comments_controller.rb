@@ -1,4 +1,6 @@
 class Api::V1::CommentsController < ActionController::API
+  include Api::Authenticatable
+
   before_action :authenticate_user_by_token
   before_action :set_post
 
@@ -36,12 +38,6 @@ class Api::V1::CommentsController < ActionController::API
 
   def comment_params
     params.require(:comment).permit(:body, :parent_id)
-  end
-
-  def authenticate_user_by_token
-    token = request.headers["Authorization"]&.split(" ")&.last
-    @current_user = User.find_by(api_token: token)
-    render json: { error: "Unauthorized" }, status: :unauthorized unless @current_user
   end
 
   def serialized_comment(comment)
