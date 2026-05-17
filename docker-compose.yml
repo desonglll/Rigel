@@ -5,13 +5,14 @@ services:
     restart: always
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
+      POSTGRES_PASSWORD: postgres
       POSTGRES_DB: development
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-
+  redis:
+    image: redis:7-alpine
   adminer:
     image: adminer:latest
     container_name: adminer-gui
@@ -20,6 +21,25 @@ services:
       - "8080:8080"
     depends_on:
       - db
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - RAILS_ENV=production
+      - RAILS_LOG_TO_STDOUT=true
+      - SECRET_KEY_BASE=2a4c586a250eaef90567ca8f014d8085fc8853a3f1e07ea4eef9d96c1896de0f5df8f7288f376151f1b9b0579758951687a0fa64d64acffe79301054c01eca82
+      - DB_HOST=db
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      # - DATABASE_URL=postgresql://postgres:postgres@db/rigel_production
+      - REDIS_URL=redis://redis:6379/1
+    volumes:
+      - rails_storage:/rails/storage
+    depends_on:
+      - db
+      - redis
 
 volumes:
   postgres_data:
+  rails_storage:
