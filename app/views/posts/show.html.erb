@@ -9,9 +9,13 @@
 <%= render @post %>
 
 <div class="py-8 border-t border-[#F3F4F6] flex gap-6 text-base">
-  <%= link_to "Edit", edit_post_path(@post) %>
+  <% if user_signed_in? && current_user == @post.author %>
+    <%= link_to "Edit", edit_post_path(@post) %>
+  <% end %>
   <%= link_to "Back", posts_path %>
-  <%= button_to "Delete", @post, method: :delete, class: "text-[#6B7280] hover:text-[#2563EB] cursor-pointer" %>
+  <% if user_signed_in? && current_user == @post.author %>
+    <%= button_to "Delete", @post, method: :delete, class: "text-[#6B7280] hover:text-[#2563EB] cursor-pointer" %>
+  <% end %>
 </div>
 
 <%= render partial: "comments/comments", locals: { commentable: @post } %>

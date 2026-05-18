@@ -1,0 +1,21 @@
+<%= turbo_frame_tag dom_id(comment) do %>
+  <div class="py-4">
+    <%= form_with model: [commentable, comment] do |f| %>
+      <div class="flex flex-col gap-2">
+        <%= f.rich_text_area :body %>
+        <div class="flex gap-2">
+          <%= f.submit "Save" %>
+          <%= link_to "Cancel", commentable, class: "px-4 py-1.5" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <% if comment.replies.ordered.any? %>
+    <div class="ml-6 pl-4">
+      <% comment.replies.ordered.each do |reply| %>
+        <%= render partial: "comments/comment", locals: { comment: reply } %>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

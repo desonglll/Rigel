@@ -85,7 +85,7 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.expect(post: [ :title, :content, :published ])
+    params.expect(post: [:title, :content, :published])
   end
 
   def authorize_author!

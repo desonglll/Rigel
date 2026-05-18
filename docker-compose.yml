@@ -5,12 +5,21 @@ services:
     restart: always
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
+      POSTGRES_PASSWORD: postgres
       POSTGRES_DB: development
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d development" ]
+      interval: 3s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+
+  redis:
+    image: redis:7-alpine
 
   adminer:
     image: adminer:latest
@@ -21,5 +30,23 @@ services:
     depends_on:
       - db
 
-volumes:
-  postgres_data:
+  web:
+    # image: ghcr.io/desonglll/rigel:main
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - RAILS_ENV=production
+      - RAILS_LOG_TO_STDOUT=true
+      - SECRET_KEY_BASE=2a4c586a250eaef90567ca8f014d8085fc8853a3f1e07ea4eef9d96c1896de0f5df8f7288f376151f1b9b0579758951687a0fa64d64acffe79301054c01eca82
+      - DB_HOST=db
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - REDIS_URL=redis://redis:6379/1
+    volumes:
+      - rails_storage:/rails/storage
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started

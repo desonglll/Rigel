@@ -1,24 +1,24 @@
 Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      resource :token, only: [ :create ]
-      resources :users, only: [ :create ]
-      resources :posts, only: [ :index, :create ] do
-        resources :comments, only: [ :index, :create, :destroy ]
+      resource :token, only: [:create]
+      resources :users, only: [:create]
+      resources :posts, only: [:index, :create] do
+        resources :comments, only: [:index, :create, :destroy]
       end
     end
   end
 
   resources :posts do
-    resources :comments, only: [ :create, :destroy ]
+    resources :comments, only: [:create, :edit, :update, :destroy]
     collection do
       get :drafts
     end
   end
   devise_for :users, controllers: {
-               sessions: "users/sessions",
-               registrations: "users/registrations"
-             }
+    sessions: "users/sessions",
+    registrations: "users/registrations"
+  }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

@@ -9,6 +9,7 @@ class User < ApplicationRecord
   before_create :generate_api_token
 
   private
+
   def generate_api_token
     self.api_token = SecureRandom.hex(24)
   end

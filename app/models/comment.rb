@@ -2,6 +2,7 @@ class Comment < ApplicationRecord
   belongs_to :commentable, polymorphic: true
   belongs_to :user
   belongs_to :parent, class_name: "Comment", optional: true
+  has_rich_text :body
 
   has_many :replies, class_name: "Comment", foreign_key: :parent_id, dependent: :destroy
 
@@ -9,7 +10,6 @@ class Comment < ApplicationRecord
     parent_id.nil?
   end
 
-  validates :body, presence: true
   validates :depth, inclusion: { in: 0..3 }
 
   scope :root_comments, -> { where(parent_id: nil) }

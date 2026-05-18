@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_commentable
-  before_action :set_comment, only: [ :destroy ]
+  before_action :set_comment, only: [:edit, :update, :destroy]
 
   def create
     @comment = @commentable.comments.build(comment_params)
@@ -17,6 +17,17 @@ class CommentsController < ApplicationController
         format.turbo_stream { render turbo_stream: turbo_stream.replace("comment_form", partial: "comments/form", locals: { commentable: @commentable, comment: @comment }) }
         format.html { redirect_to @commentable, alert: "Comment could not be created." }
       end
+    end
+  end
+
+  def edit
+  end
+
+  def update
+    if @comment.user == current_user && @comment.update(comment_params)
+      redirect_to @commentable
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
