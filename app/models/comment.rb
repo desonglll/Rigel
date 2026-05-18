@@ -9,6 +9,7 @@ class Comment < ApplicationRecord
   def root?
     parent_id.nil?
   end
+
   validates :depth, inclusion: { in: 0..3 }
 
   scope :root_comments, -> { where(parent_id: nil) }

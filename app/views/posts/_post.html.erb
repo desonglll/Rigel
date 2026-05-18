@@ -1,7 +1,8 @@
 <article id="<%= dom_id post %>" class="py-8">
   <h1 class="text-3xl font-bold mb-2"><%= post.title %></h1>
   <div class="text-sm text-[#6B7280] mb-8">
-    <%= post.author.user_name %> · <time><%= post.created_at.strftime("%Y-%m-%d") %></time>
+    <%= post.author.user_name %> ·
+    <time><%= post.created_at.strftime("%Y-%m-%d") %></time>
   </div>
   <div class="leading-relaxed">
     <%= post.content %>
