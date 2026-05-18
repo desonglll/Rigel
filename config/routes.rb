@@ -1,16 +1,16 @@
 Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      resource :token, only: [:create]
-      resources :users, only: [:create]
-      resources :posts, only: [:index, :create] do
-        resources :comments, only: [:index, :create, :destroy]
+      resource :token, only: [ :create ]
+      resources :users, only: [ :create ]
+      resources :posts, only: [ :index, :create ] do
+        resources :comments, only: [ :index, :create, :destroy ]
       end
     end
   end
 
   resources :posts do
-    resources :comments, only: [:create, :edit, :update, :destroy]
+    resources :comments, only: [ :create, :edit, :update, :destroy ]
     collection do
       get :drafts
     end
