@@ -2,12 +2,10 @@
 
 one:
   title: MyString
-  content: MyText
   published: false
   author: one
 
 two:
   title: MyString
-  content: MyText
   published: false
   author: two
