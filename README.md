@@ -18,6 +18,8 @@ A reddit liked post system based on Ruby on Rails.
 
 <img width="1199" height="811" alt="image" src="https://github.com/user-attachments/assets/8659f60d-1212-4f84-a48b-f92b4dce3c60" />
 
+<img width="1450" height="1020" alt="image" src="https://github.com/user-attachments/assets/fc1e3f7b-efb9-41da-9140-c405822245b5" />
+
 <img width="1450" height="1020" alt="image" src="https://github.com/user-attachments/assets/58df5ab8-34b1-4ab3-b66e-4bf475b57ca2" />
 
 <img width="1139" height="830" alt="image" src="https://github.com/user-attachments/assets/f1c7b428-2dfa-46c9-9bb0-962d80855e75" />
