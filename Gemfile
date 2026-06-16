@@ -68,7 +68,7 @@ end
 
 gem "devise", "~> 5.0"
 
-gem "tailwindcss-rails", "~> 4.4"
+gem "tailwindcss-rails", "~> 4.5"
 gem "lexxy", "~> 0.1.26.beta" # Need to specify the version since it's a pre-release
 gem "kramdown"
 gem "sanitize"
